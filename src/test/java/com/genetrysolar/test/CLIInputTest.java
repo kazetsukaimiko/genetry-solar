@@ -32,4 +32,16 @@ public class CLIInputTest {
         return input;
     }
 
+
+    @Test
+    public void testJbossHome() {
+        System.getProperties()
+                .forEach(this::dump);
+        System.setProperty("jboss.home", "me");
+        System.out.println(System.getProperty("jboss.home"));
+    }
+
+    private void dump(Object o, Object o1) {
+        System.out.println(o + " : " + o1);
+    }
 }

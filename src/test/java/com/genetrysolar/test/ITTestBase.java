@@ -19,6 +19,9 @@ public class ITTestBase {
 
     public static final String PWD = "PWD";
     public static final String TARGET = "./target/victor.war";
+    public static final String JBOSS_HOME = "jboss.home";
+    public static final String USER_HOME = "user.home";
+
 
     @Test
     public void testCWD() {
@@ -53,7 +56,18 @@ public class ITTestBase {
         return Paths.get(System.getenv().get(PWD)).toAbsolutePath();
     }
 
+    public static Path getWildflyHome() {
+        String jbossHome = System.getProperty(JBOSS_HOME);
+        return (jbossHome != null
+                ? Paths.get(jbossHome)
+                : Paths.get(System.getProperty(USER_HOME), "bin", "wildfly", "gsbase"))
+                .normalize()
+                .toAbsolutePath();
+    }
+
     public static Archive<?> createWar() {
+        System.setProperty("jboss.home", getWildflyHome().toString());
+
         Path mavenWar = buildWARArchiveWithMaven(getMavenPath());
         // Import the web archive that was created by Maven:
 
@@ -62,7 +76,9 @@ public class ITTestBase {
                 .as(WebArchive.class);
 
         // Add the package containing the test classes:
+        war.addAsResource("arquillian.xml");
         war.addPackage("com.genetrysolar.test");
+        //war.addAsResource()
 
         // Export the WAR file to examine it in case of problems:
         // war.as(ZipExporter.class).exportTo(new File("c:\\temp\\test.war"), true);
