@@ -1,5 +1,7 @@
 package com.genetrysolar.test;
 
+import com.genetrysolar.victor.service.TelemetryService;
+import com.genetrysolar.wifiboard.entity.Telemetry;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -11,6 +13,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
@@ -22,7 +26,6 @@ public class ITTestBase {
     public static final String TARGET = "./target/victor.war";
     public static final String JBOSS_HOME = "jboss.home";
     public static final String USER_HOME = "user.home";
-
 
     @Test
     public void testCWD() {
@@ -82,8 +85,7 @@ public class ITTestBase {
 
         // Add the package containing the test classes:
         war.addAsResource("arquillian.xml");
-        war.addPackage("com.genetrysolar.test");
-        //war.addAsResource()
+        war.addPackages(true, "com.genetrysolar");
 
         // Export the WAR file to examine it in case of problems:
         // war.as(ZipExporter.class).exportTo(new File("c:\\temp\\test.war"), true);

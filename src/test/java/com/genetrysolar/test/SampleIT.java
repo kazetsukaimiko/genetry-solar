@@ -1,10 +1,13 @@
 package com.genetrysolar.test;
 
-import org.jboss.arquillian.container.test.api.Deployment;
+import com.genetrysolar.victor.service.TelemetryService;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Sample integration test: demonstrates how to create the WAR file using the ShrinkWrap API.
@@ -14,14 +17,18 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class SampleIT extends ITTestBase {
 
+
+    @Inject
+    private TelemetryService telemetryService;
+
     /**
-     * A sample test...
+     * Just testing behavior under different bean scopes
      * 
      */
     @Test
     public void test() {
-        // This line will be written on the server console.
-        System.out.println("Test is invoked...");
+        assertEquals(0, telemetryService.inc());
+        assertEquals(1, telemetryService.inc());
     }
 
 }
