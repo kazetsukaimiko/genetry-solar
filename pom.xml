@@ -36,6 +36,9 @@
         <!-- Liquibase versions -->
         <version.liquibase>4.1.0</version.liquibase>
 
+        <!-- ElasticSearch -->
+        <version.elasticsearch>7.9.2</version.elasticsearch>
+
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>2.0.2.Final</version.wildfly.maven.plugin>
 
@@ -147,6 +150,19 @@
             <version>${version.liquibase}</version>
         </dependency>
 
+        <!-- ElasticSearch integrated Server -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${version.elasticsearch}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client -->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>${version.elasticsearch}</version>
+        </dependency>
 
         <!-- Test scope dependencies -->
         <dependency>
