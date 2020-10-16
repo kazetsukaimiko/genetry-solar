@@ -15,20 +15,6 @@ import org.junit.runner.RunWith;
 public class SampleIT extends ITTestBase {
 
     /**
-     * Creates the WAR file that is deployed to the server.
-     *
-     * @return WAR archive
-     */
-    @Deployment
-    public static Archive<?> getEarArchive() {
-        // Import the web archive that was created by Ma
-        return createWar();
-    }
-
-    
-
-
-    /**
      * A sample test...
      * 
      */

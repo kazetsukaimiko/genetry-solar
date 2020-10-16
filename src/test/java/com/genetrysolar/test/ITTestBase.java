@@ -1,5 +1,6 @@
 package com.genetrysolar.test;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
@@ -29,7 +30,12 @@ public class ITTestBase {
         System.out.println("Archive successfully created: " + path.toString());
     }
 
+    // Ensure the WAR is built ahead of time
     public static Path buildWARArchiveWithMaven(Path mavenPath) {
+        Path targetPath = getTargetPath(mavenPath);
+        if (Files.isReadable(targetPath)) {
+            return targetPath;
+        }
         try {
             assertTrue("pom.xml must exist",
                     Files.isReadable(Paths.get(mavenPath.toString(), "pom.xml")));
@@ -38,9 +44,8 @@ public class ITTestBase {
                     .inheritIO()
                     .start();
             p.waitFor(10, TimeUnit.MINUTES);
-            Path target = getTargetPath(mavenPath);
-            assertTrue("Target " + target.toString() + " must exist", Files.isReadable(target));
-            return target;
+            assertTrue("Target " + targetPath.toString() + " must exist", Files.isReadable(targetPath));
+            return targetPath;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -84,6 +89,17 @@ public class ITTestBase {
         // war.as(ZipExporter.class).exportTo(new File("c:\\temp\\test.war"), true);
 
         return war;
+    }
+
+    /**
+     * Creates the WAR file that is deployed to the server.
+     *
+     * @return WAR archive
+     */
+    @Deployment
+    public static Archive<?> getWarArchive() {
+        // Import the web archive that was created by Ma
+        return createWar();
     }
 
 }
