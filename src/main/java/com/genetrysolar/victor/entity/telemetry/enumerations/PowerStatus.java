@@ -1,5 +1,7 @@
 package com.genetrysolar.victor.entity.telemetry.enumerations;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum PowerStatus {
     OFF("Off"),
     ON("On"),
@@ -15,5 +17,10 @@ public enum PowerStatus {
 
     public String getDescription() {
         return description;
+    }
+
+    @JsonValue
+    public int getOrdinal() {
+        return ordinal();
     }
 }

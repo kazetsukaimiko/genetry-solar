@@ -3,6 +3,8 @@ package com.genetrysolar.victor.entity.telemetry;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.genetrysolar.victor.entity.telemetry.enumerations.ErrorCodes;
 
+import java.util.Objects;
+
 public class ErrorTelemetry {
     public static final String EXAMPLE = "{\"Alms\":\"00000000000000000\", \"Err\":0}";
 
@@ -30,5 +32,27 @@ public class ErrorTelemetry {
 
     public void setErrorCodes(ErrorCodes errorCodes) {
         this.errorCodes = errorCodes;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorTelemetry{" +
+                "alarmBits='" + alarmBits + '\'' +
+                ", errorCodes=" + errorCodes +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ErrorTelemetry that = (ErrorTelemetry) o;
+        return Objects.equals(alarmBits, that.alarmBits) &&
+                errorCodes == that.errorCodes;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alarmBits, errorCodes);
     }
 }

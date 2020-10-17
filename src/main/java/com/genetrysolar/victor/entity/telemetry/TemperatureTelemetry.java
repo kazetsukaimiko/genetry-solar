@@ -3,6 +3,8 @@ package com.genetrysolar.victor.entity.telemetry;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.genetrysolar.victor.entity.telemetry.enumerations.TemperatureRadix;
 
+import java.util.Objects;
+
 public class TemperatureTelemetry {
     public static final String EXAMPLE = "{\"rdx\":\"F\",\"T1\":106.0, \"T2\":-0.1, \"T3\":100.3, \"T4\":86.4, \"T5\":-0.1, \"T6\":-0.1, \"TT\":95.8, \"TM\":108.5, \"TC\":-0.1, \"TA\":67.1}";
 
@@ -137,5 +139,45 @@ public class TemperatureTelemetry {
 
     public void setAmbientThermistor(Double ambientThermistor) {
         this.ambientThermistor = ambientThermistor;
+    }
+
+    @Override
+    public String toString() {
+        return "TemperatureTelemetry{" +
+                "rdx=" + rdx +
+                ", thermistor1=" + thermistor1 +
+                ", thermistor2=" + thermistor2 +
+                ", thermistor3=" + thermistor3 +
+                ", thermistor4=" + thermistor4 +
+                ", thermistor5=" + thermistor5 +
+                ", thermistor6=" + thermistor6 +
+                ", transformerThermistor=" + transformerThermistor +
+                ", mosfetThermistor=" + mosfetThermistor +
+                ", cpuThermistor=" + cpuThermistor +
+                ", ambientThermistor=" + ambientThermistor +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TemperatureTelemetry that = (TemperatureTelemetry) o;
+        return rdx == that.rdx &&
+                Objects.equals(thermistor1, that.thermistor1) &&
+                Objects.equals(thermistor2, that.thermistor2) &&
+                Objects.equals(thermistor3, that.thermistor3) &&
+                Objects.equals(thermistor4, that.thermistor4) &&
+                Objects.equals(thermistor5, that.thermistor5) &&
+                Objects.equals(thermistor6, that.thermistor6) &&
+                Objects.equals(transformerThermistor, that.transformerThermistor) &&
+                Objects.equals(mosfetThermistor, that.mosfetThermistor) &&
+                Objects.equals(cpuThermistor, that.cpuThermistor) &&
+                Objects.equals(ambientThermistor, that.ambientThermistor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rdx, thermistor1, thermistor2, thermistor3, thermistor4, thermistor5, thermistor6, transformerThermistor, mosfetThermistor, cpuThermistor, ambientThermistor);
     }
 }

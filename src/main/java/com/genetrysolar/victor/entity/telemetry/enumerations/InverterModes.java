@@ -1,12 +1,13 @@
 package com.genetrysolar.victor.entity.telemetry.enumerations;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum InverterModes {
     POWER_ON("Power On"),
     CHARGER("Charger"),
     INVERTER("Inverter"),
     OFF("Off"),
-    ERROR("Error")
-    ;
+    ERROR("Error");
 
     private final String description;
 
@@ -16,5 +17,10 @@ public enum InverterModes {
 
     public String getDescription() {
         return description;
+    }
+
+    @JsonValue
+    public int getOrdinal() {
+        return ordinal();
     }
 }
