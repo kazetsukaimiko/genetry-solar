@@ -26,12 +26,9 @@ public class ITTestBase {
     public static Archive<?> createWar() {
         System.setProperty("jboss.home", getWildflyHome().toString());
 
-        //Path mavenWar = buildWARArchiveWithMaven(getMavenPath());
-        // Import the web archive that was created by Maven:
-
         WebArchive war = ShrinkWrap.create(WebArchive.class, "victor.war");
 
-        // Add the package containing the test classes:
+        // Add any dependencies
         war.addAsResource("arquillian.xml");
         war.addPackages(true, "com.genetrysolar");
 
