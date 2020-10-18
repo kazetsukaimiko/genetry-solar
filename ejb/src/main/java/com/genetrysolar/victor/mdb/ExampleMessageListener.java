@@ -1,18 +1,15 @@
 package com.genetrysolar.victor.mdb;
 
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.TextMessage;
 import java.util.Collections;
 import java.util.Enumeration;
-
+/*
 @JMSDestinationDefinition(
         name = ExampleMessageListener.RESOURCE,
         interfaceName = "javax.jms.Topic",
-        destinationName = "ExampleTopic"
+        destinationName = "DestinationExampleTopic"
 )
 @MessageDriven(activationConfig = {
         //@ActivationConfigProperty(propertyName="messagingType", propertyValue="javax.jms.MessageListener"),
@@ -21,8 +18,8 @@ import java.util.Enumeration;
         @ActivationConfigProperty(propertyName = "MaxPoolSize", propertyValue = "1"),
         @ActivationConfigProperty(propertyName = "MaxMessages", propertyValue = "1"),
         @ActivationConfigProperty(propertyName = "useJNDI", propertyValue = "true")
-})
-public class ExampleMessageListener extends VictorMessageRecipients {
+})*/
+public final class ExampleMessageListener extends VictorMessageRecipients {
     public static final String RESOURCE = "java:app/jms/exampleTopic";
 
     @Override

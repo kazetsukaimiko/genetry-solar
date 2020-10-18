@@ -37,6 +37,8 @@ public class SampleIT extends ITTestBase {
                     SetupTelemetry setup = makeSetupTelemetry(sourceId);
                     StatusTelemetry status = makeStatusTelemetry(sourceId);
                     TemperatureTelemetry temp = makeTempTelemetry(sourceId, ((idx / 1000) * 25) + 25);
+
+                    TelemetryService svc = victim.get();
                     /*
                     try {
                         victim.record(setup);

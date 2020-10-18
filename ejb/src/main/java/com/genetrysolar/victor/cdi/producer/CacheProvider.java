@@ -1,6 +1,6 @@
 package com.genetrysolar.victor.cdi.producer;
 
-import com.genetrysolar.victor.service.qualifier.TelemetryCache;
+import com.genetrysolar.victor.qualifier.TelemetryCache;
 import org.infinispan.cdi.ConfigureCache;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;

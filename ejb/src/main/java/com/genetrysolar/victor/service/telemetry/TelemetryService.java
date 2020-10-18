@@ -1,6 +1,5 @@
 package com.genetrysolar.victor.service.telemetry;
 
-import com.genetrysolar.api.AllTelemetryCRUD;
 import com.genetrysolar.jpa.AllTelemetry;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,7 +13,7 @@ import java.util.logging.Logger;
  * Main service for recording telemetry.
  */
 @ApplicationScoped
-public class TelemetryService implements AllTelemetryCRUD { //} TelemetryRecorder {
+public class TelemetryService { // implements AllTelemetryCRUD { // TelemetryRecorder {
     private static final Logger LOGGER = Logger.getLogger(TelemetryService.class.getName());
 
     // Really lazy- TODO: Use Infinispan.
@@ -27,7 +26,8 @@ public class TelemetryService implements AllTelemetryCRUD { //} TelemetryRecorde
     //protected EntityManager entityManager;
 
     //@Inject
-    //private Cache<String, AllTelemetry> telemetryCache;
+    //@TelemetryCache
+    //private Cache<String, AllTelemetry> telemetryCaches;
 
     /*
     @Inject
@@ -64,13 +64,13 @@ public class TelemetryService implements AllTelemetryCRUD { //} TelemetryRecorde
 
     // CRUD Operations
 
-    @Override
+    //@Override
     public AllTelemetry persist(AllTelemetry entity) {
         //entityManager.persist(entity);
         return entity;
     }
 
-    @Override
+    //@Override
     public int delete(Long entityId) {
         /*
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -83,7 +83,7 @@ public class TelemetryService implements AllTelemetryCRUD { //} TelemetryRecorde
         return 0;
     }
 
-    @Override
+    //@Override
     public AllTelemetry getEntityById(Long entityId) {
         /*
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();

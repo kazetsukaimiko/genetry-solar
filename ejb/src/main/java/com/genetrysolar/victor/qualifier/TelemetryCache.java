@@ -1,4 +1,4 @@
-package com.genetrysolar.victor.service.qualifier;
+package com.genetrysolar.victor.qualifier;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.genetrysolar.model.StatusTelemetry;
 import com.genetrysolar.model.TelemetryFragment;
-import com.genetrysolar.model.enumerations.MQTTConstants;
-import com.genetrysolar.victor.mdb.ExampleMessageListener;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
@@ -36,6 +34,7 @@ public class TelemetryMessaging {
     @JMSConnectionFactory(FACTORY_RESOURCE)
     private ConnectionFactory connectionFactory;
 
+    /*
     @Resource(lookup = ExampleMessageListener.RESOURCE)
     private Topic exampleTopic;
 
@@ -56,10 +55,12 @@ public class TelemetryMessaging {
 
     @Resource(lookup = MQTTConstants.TEMPS_RESOURCE)
     private Topic tempTopic;
+    */
 
     public void sendStatus(StatusTelemetry statusTelemetry) {
+        /*
         sendMessage(statusTopic, statusTelemetry, m -> {
-        });
+        });*/
     }
 
     public void sendMessage(Topic topic, TelemetryFragment telemetryFragment, Consumer<Message> additional) {
