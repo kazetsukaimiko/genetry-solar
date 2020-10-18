@@ -1,6 +1,7 @@
 package com.genetrysolar.victor.entity.telemetry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.genetrysolar.jpa.AllTelemetry;
 
 import java.time.Instant;
 

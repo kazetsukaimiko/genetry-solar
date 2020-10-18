@@ -21,7 +21,7 @@ public class LiquibaseProducer {
     @LiquibaseType
     public CDILiquibaseConfig createConfig() {
         CDILiquibaseConfig config = new CDILiquibaseConfig();
-        config.setChangeLog("liquibase/genetry/databaseChangeLog.xml");
+        config.setChangeLog("schema/databaseChangeLog.xml");
         return config;
     }
 

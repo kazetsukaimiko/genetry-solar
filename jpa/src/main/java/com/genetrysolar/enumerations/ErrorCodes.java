@@ -1,4 +1,4 @@
-package com.genetrysolar.victor.entity.telemetry.enumerations;
+package com.genetrysolar.enumerations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

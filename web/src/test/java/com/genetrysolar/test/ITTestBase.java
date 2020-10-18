@@ -36,6 +36,7 @@ public class ITTestBase extends FakeTelemetry {
         war.addPackages(true, "org.elasticsearch");
         war.addPackages(true, "org.apache.lucene");
         war.addPackages(true, "org.apache.http");
+        war.addPackages(true, "org.jboss.weld.exceptions");
 
         // Export the WAR file to examine it in case of problems:
         // war.as(ZipExporter.class).exportTo(new File("c:\\temp\\test.war"), true);

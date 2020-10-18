@@ -1,4 +1,4 @@
-package com.genetrysolar.victor.entity.telemetry.enumerations;
+package com.genetrysolar.enumerations;
 
 public enum TemperatureRadix {
     F("F", "Fahrenheit"),

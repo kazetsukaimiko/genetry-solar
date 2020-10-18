@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.node.NumericNode;
 
 import java.util.Comparator;
 
+/**
+ * When comparing JSON, disregard the difference between "val": 5 and "val": 5.0
+ */
 public class NumericNodeComparator implements Comparator<JsonNode> {
     @Override
     public int compare(JsonNode o1, JsonNode o2) {

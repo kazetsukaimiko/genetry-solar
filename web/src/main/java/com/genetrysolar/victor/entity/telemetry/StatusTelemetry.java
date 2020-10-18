@@ -1,8 +1,9 @@
 package com.genetrysolar.victor.entity.telemetry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.genetrysolar.victor.entity.telemetry.enumerations.InverterModes;
-import com.genetrysolar.victor.entity.telemetry.enumerations.PowerStatus;
+import com.genetrysolar.enumerations.InverterModes;
+import com.genetrysolar.enumerations.PowerStatus;
+import com.genetrysolar.jpa.AllTelemetry;
 
 import java.util.Objects;
 

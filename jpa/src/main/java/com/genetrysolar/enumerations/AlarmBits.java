@@ -1,4 +1,4 @@
-package com.genetrysolar.victor.entity.telemetry.enumerations;
+package com.genetrysolar.enumerations;
 
 // TODO: Sid needs to spill the beans on these flags
 public enum AlarmBits {

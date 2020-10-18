@@ -1,6 +1,7 @@
 package com.genetrysolar.victor.entity.telemetry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.genetrysolar.jpa.AllTelemetry;
 
 import java.util.Objects;
 
@@ -29,10 +30,6 @@ public class SetupTelemetry extends TelemetryFragment {
     private Double chargeCapable;
 
     public SetupTelemetry() {
-    }
-
-    public static String getEXAMPLE() {
-        return EXAMPLE;
     }
 
     public String getModel() {

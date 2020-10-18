@@ -1,13 +1,28 @@
-package com.genetrysolar.victor.entity.telemetry;
+package com.genetrysolar.jpa;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.genetrysolar.victor.entity.telemetry.enumerations.ErrorCodes;
-import com.genetrysolar.victor.entity.telemetry.enumerations.InverterModes;
-import com.genetrysolar.victor.entity.telemetry.enumerations.PowerStatus;
+import com.genetrysolar.enumerations.ErrorCodes;
+import com.genetrysolar.enumerations.InverterModes;
+import com.genetrysolar.enumerations.PowerStatus;
 
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import java.time.Instant;
 
-public class AllTelemetry {
+@Table(
+        indexes = {
+                @Index(columnList = "TIMESTAMP"),
+                @Index(columnList = "SOURCEID"),
+                @Index(columnList = "OFFREASON"),
+                @Index(columnList = "SERIALNUMBER,PRODUCTTYPE")
+        }
+)
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public class AllTelemetry extends EntityBase {
     private boolean errorTelemetryCollected = true;
     private boolean fanTelemetryCollected = true;
     private boolean inputTelemetryCollected = true;
@@ -16,7 +31,7 @@ public class AllTelemetry {
     private boolean tempTelemetryCollected = false;
     private boolean setupTelemetryCollected = false;
 
-    private long created = Instant.now().toEpochMilli();
+    private long timestamp = Instant.now().toEpochMilli();
     private String sourceId;
 
     // TODO : Set<AlarmBits>
@@ -194,12 +209,12 @@ public class AllTelemetry {
         this.setupTelemetryCollected = setupTelemetryCollected;
     }
 
-    public long getCreated() {
-        return created;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setCreated(long created) {
-        this.created = created;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getSourceId() {

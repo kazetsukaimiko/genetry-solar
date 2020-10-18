@@ -21,12 +21,16 @@
     <!-- ElasticSearch -->
     <version.elasticsearch>7.9.2</version.elasticsearch>
 
+    <!-- Jackson -->
+    <version.jackson>2.11.1</version.jackson>
+
     <!-- JBoss dependency versions -->
     <version.wildfly.maven.plugin>2.0.2.Final</version.wildfly.maven.plugin>
     <version.org.wildfly.arquillian>3.0.1.Final</version.org.wildfly.arquillian>
 
     <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-    <version.infinispan>8.0.2.Final</version.infinispan>
+    <version.infinispan>9.4.16.Final</version.infinispan>
+    <version.infinispan.cdi>8.0.2.Final</version.infinispan.cdi>
 
     <version.jboss.bom>21.0.0.Final</version.jboss.bom>
     <io.freedriver.version>1.0.0-SNAPSHOT</io.freedriver.version>

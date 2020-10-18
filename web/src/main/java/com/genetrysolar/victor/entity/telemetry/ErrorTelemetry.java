@@ -1,7 +1,8 @@
 package com.genetrysolar.victor.entity.telemetry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.genetrysolar.victor.entity.telemetry.enumerations.ErrorCodes;
+import com.genetrysolar.enumerations.ErrorCodes;
+import com.genetrysolar.jpa.AllTelemetry;
 
 import java.util.Objects;
 
