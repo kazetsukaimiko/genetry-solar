@@ -1,5 +1,7 @@
 package com.genetrysolar.victor.entity.telemetry;
 
+import com.genetrysolar.model.TemperatureTelemetry;
+
 public class TemperatureTelemetryTest extends TelemetryTest<TemperatureTelemetry> {
     @Override
     protected String getExample() {

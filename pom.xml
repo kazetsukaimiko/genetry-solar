@@ -9,9 +9,6 @@
   <packaging>pom</packaging>
 
   <properties>
-    <version.thorntail>2.6.0.Final</version.thorntail>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -24,6 +21,14 @@
     <!-- Jackson -->
     <version.jackson>2.11.1</version.jackson>
 
+    <!-- Plugins -->
+    <version.compiler.plugin>3.8.1</version.compiler.plugin>
+    <version.ear.plugin>3.0.2</version.ear.plugin>
+    <version.ejb.plugin>3.0.1</version.ejb.plugin>
+    <version.surefire.plugin>2.22.2</version.surefire.plugin>
+    <version.failsafe.plugin>2.22.2</version.failsafe.plugin>
+    <version.war.plugin>3.2.3</version.war.plugin>
+
     <!-- JBoss dependency versions -->
     <version.wildfly.maven.plugin>2.0.2.Final</version.wildfly.maven.plugin>
     <version.org.wildfly.arquillian>3.0.1.Final</version.org.wildfly.arquillian>
@@ -34,6 +39,12 @@
 
     <version.jboss.bom>21.0.0.Final</version.jboss.bom>
     <io.freedriver.version>1.0.0-SNAPSHOT</io.freedriver.version>
+
+    <!-- Metamodel gen -->
+    <eclipselink.version>2.7.6</eclipselink.version>
+
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencyManagement>
@@ -63,29 +74,194 @@
 
       <dependency>
         <groupId>com.genetrysolar</groupId>
-        <artifactId>victor-api</artifactId>
+        <artifactId>victor-jpa</artifactId>
         <version>${project.version}</version>
+        <type>jar</type>
       </dependency>
 
       <dependency>
         <groupId>com.genetrysolar</groupId>
-        <artifactId>victor-jpa</artifactId>
+        <artifactId>victor-api</artifactId>
         <version>${project.version}</version>
+        <type>jar</type>
+      </dependency>
+
+      <dependency>
+        <groupId>com.genetrysolar</groupId>
+        <artifactId>victor-ejb</artifactId>
+        <version>${project.version}</version>
+        <type>ejb</type>
       </dependency>
 
       <dependency>
         <groupId>com.genetrysolar</groupId>
         <artifactId>victor-web</artifactId>
         <version>${project.version}</version>
+        <type>war</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
   <modules>
-    <module>api</module>
     <module>jpa</module>
+    <module>api</module>
+    <module>ejb</module>
     <module>web</module>
+    <module>ear</module>
   </modules>
+
+  <build>
+    <plugins>
+      <!--Configuration of the maven-compiler-plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${version.compiler.plugin}</version>
+        <configuration>
+          <!-- put your configurations here -->
+        </configuration>
+      </plugin>
+      <!-- The WildFly plugin deploys your ear to a local JBoss AS container -->
+      <!-- Due to Maven's lack of intelligence with EARs we need
+           to configure the wildfly maven plugin to skip deployment for all modules.
+           We then enable it specifically in the ear module. -->
+      <plugin>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <version>${version.wildfly.maven.plugin}</version>
+        <inherited>true</inherited>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <!-- All the modules that require nothing but JBoss Enterprise
+           Application Platform or JBoss EAP -->
+      <id>default</id>
+    </profile>
+
+
+    <profile>
+      <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
+           This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done.
+           Run with: mvn clean verify -Parq-managed -->
+      <id>arq-embedded</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-embedded</artifactId>
+          <version>${version.org.wildfly.arquillian}</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${version.failsafe.plugin}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <!-- Configuration for Arquillian: -->
+              <systemPropertyVariables>
+                <!-- Defines the container qualifier in "arquillian.xml" -->
+                <arquillian.launch>embedded</arquillian.launch>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
+           This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done.
+           Run with: mvn clean verify -Parq-managed -->
+      <id>arq-managed</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-managed</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${version.failsafe.plugin}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <!-- Configuration for Arquillian: -->
+              <systemPropertyVariables>
+                <!-- Defines the container qualifier in "arquillian.xml" -->
+                <arquillian.launch>managed</arquillian.launch>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
+           Run with: mvn clean verify -Parq-remote -->
+      <id>arq-remote</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-remote</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${version.failsafe.plugin}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <!-- Configuration for Arquillian: -->
+              <systemPropertyVariables>
+                <!-- Defines the container qualifier in "arquillian.xml" -->
+                <arquillian.launch>remote</arquillian.launch>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <repositories>
     <repository>
@@ -98,5 +274,27 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
+
+    <repository>
+      <id>bintray</id>
+      <url>https://jcenter.bintray.com</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>RedhatGA</id>
+      <url>https://maven.repository.redhat.com/ga/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
   </repositories>
+
 </project>

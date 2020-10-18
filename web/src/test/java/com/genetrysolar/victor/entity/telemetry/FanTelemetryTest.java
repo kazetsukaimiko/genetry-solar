@@ -1,5 +1,7 @@
 package com.genetrysolar.victor.entity.telemetry;
 
+import com.genetrysolar.model.FanTelemetry;
+
 public class FanTelemetryTest extends TelemetryTest<FanTelemetry> {
     @Override
     protected String getExample() {

@@ -3,6 +3,9 @@ package com.genetrysolar.victor.entity.telemetry;
 import com.genetrysolar.enumerations.InverterModes;
 import com.genetrysolar.enumerations.PowerStatus;
 import com.genetrysolar.enumerations.TemperatureRadix;
+import com.genetrysolar.model.SetupTelemetry;
+import com.genetrysolar.model.StatusTelemetry;
+import com.genetrysolar.model.TemperatureTelemetry;
 import org.junit.Test;
 
 import java.math.BigDecimal;

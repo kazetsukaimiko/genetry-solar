@@ -33,10 +33,12 @@ public class ITTestBase extends FakeTelemetry {
         war.addAsResource("arquillian.xml");
         war.addPackages(true, "com.genetrysolar");
 
+        war.addPackages(true, "liquibase");
+        war.addPackages(true, "org.infinispan");
         war.addPackages(true, "org.elasticsearch");
         war.addPackages(true, "org.apache.lucene");
         war.addPackages(true, "org.apache.http");
-        war.addPackages(true, "org.jboss.weld.exceptions");
+        war.addPackages(true, "org.jboss.weld");
 
         // Export the WAR file to examine it in case of problems:
         // war.as(ZipExporter.class).exportTo(new File("c:\\temp\\test.war"), true);

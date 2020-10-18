@@ -1,5 +1,7 @@
 package com.genetrysolar.victor.entity.telemetry;
 
+import com.genetrysolar.model.StatusTelemetry;
+
 public class StatusTelemetryTest extends TelemetryTest<StatusTelemetry> {
     @Override
     protected String getExample() {
