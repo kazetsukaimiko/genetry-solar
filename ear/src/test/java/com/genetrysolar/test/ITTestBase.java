@@ -1,6 +1,6 @@
 package com.genetrysolar.test;
 
-// import com.genetrysolar.victor.entity.telemetry.FakeTelemetry;
+// import com.genetrysolar.seed.FakeTelemetry;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;

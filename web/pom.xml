@@ -39,6 +39,13 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.genetrysolar</groupId>
+            <artifactId>victor-jpa</artifactId>
+            <type>jar</type>
+        </dependency>
+
         <dependency>
             <groupId>com.genetrysolar</groupId>
             <artifactId>victor-ejb</artifactId>

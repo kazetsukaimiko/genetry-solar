@@ -45,4 +45,11 @@ public interface EntityCRUD<E extends EntityBase, ID> {
      */
     E getEntityById(ID entityId);
 
+    /**
+     * Total entity cound
+     *
+     * @return number of entities in the database
+     */
+    long count();
+
 }

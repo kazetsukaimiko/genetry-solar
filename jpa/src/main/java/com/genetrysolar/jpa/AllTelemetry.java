@@ -1,5 +1,6 @@
 package com.genetrysolar.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.genetrysolar.enumerations.ErrorCodes;
 import com.genetrysolar.enumerations.InverterModes;
@@ -11,6 +12,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import java.time.Instant;
+import java.util.Objects;
 
 @Table(
         indexes = {
@@ -21,12 +23,19 @@ import java.time.Instant;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class AllTelemetry extends EntityBase {
+    @JsonIgnore
     private boolean errorTelemetryCollected = true;
+    @JsonIgnore
     private boolean fanTelemetryCollected = true;
+    @JsonIgnore
     private boolean inputTelemetryCollected = true;
+    @JsonIgnore
     private boolean outputTelemetryCollected = true;
+    @JsonIgnore
     private boolean statusTelemetryCollected = false;
+    @JsonIgnore
     private boolean tempTelemetryCollected = false;
+    @JsonIgnore
     private boolean setupTelemetryCollected = false;
 
     private long timestamp = Instant.now().toEpochMilli();
@@ -503,6 +512,7 @@ public class AllTelemetry extends EntityBase {
         this.chargeCapable = chargeCapable;
     }
 
+    @JsonIgnore
     public boolean isComplete() {
         return isSetupTelemetryCollected()
                 && isErrorTelemetryCollected()
@@ -511,5 +521,69 @@ public class AllTelemetry extends EntityBase {
                 && isOutputTelemetryCollected()
                 && isStatusTelemetryCollected()
                 && isTempTelemetryCollected();
+    }
+
+    @Override
+    public String toString() {
+        return "AllTelemetry{" +
+                "errorTelemetryCollected=" + errorTelemetryCollected +
+                ", fanTelemetryCollected=" + fanTelemetryCollected +
+                ", inputTelemetryCollected=" + inputTelemetryCollected +
+                ", outputTelemetryCollected=" + outputTelemetryCollected +
+                ", statusTelemetryCollected=" + statusTelemetryCollected +
+                ", tempTelemetryCollected=" + tempTelemetryCollected +
+                ", setupTelemetryCollected=" + setupTelemetryCollected +
+                ", timestamp=" + timestamp +
+                ", sourceId='" + sourceId + '\'' +
+                ", alarmBits='" + alarmBits + '\'' +
+                ", errorCodes=" + errorCodes +
+                ", fanA=" + fanA +
+                ", fanB=" + fanB +
+                ", fanC=" + fanC +
+                ", acInput=" + acInput +
+                ", chargeAmperage=" + chargeAmperage +
+                ", batteryVoltage=" + batteryVoltage +
+                ", outputVoltage=" + outputVoltage +
+                ", outputAmperage=" + outputAmperage +
+                ", outputWattage=" + outputWattage +
+                ", outPF=" + outPF +
+                ", outHZ=" + outHZ +
+                ", inverterModes=" + inverterModes +
+                ", power=" + power +
+                ", hours=" + hours +
+                ", kWh=" + kWh +
+                ", version='" + version + '\'' +
+                ", thermistor1=" + thermistor1 +
+                ", thermistor2=" + thermistor2 +
+                ", thermistor3=" + thermistor3 +
+                ", thermistor4=" + thermistor4 +
+                ", thermistor5=" + thermistor5 +
+                ", thermistor6=" + thermistor6 +
+                ", transformerThermistor=" + transformerThermistor +
+                ", mosfetThermistor=" + mosfetThermistor +
+                ", cpuThermistor=" + cpuThermistor +
+                ", ambientThermistor=" + ambientThermistor +
+                ", model='" + model + '\'' +
+                ", hardwareVersion=" + hardwareVersion +
+                ", uvAlarmVoltage=" + uvAlarmVoltage +
+                ", uvErrorVoltage=" + uvErrorVoltage +
+                ", ovAlarmVoltage=" + ovAlarmVoltage +
+                ", ovErrorVoltage=" + ovErrorVoltage +
+                ", chargeCapable=" + chargeCapable +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AllTelemetry that = (AllTelemetry) o;
+        return timestamp == that.timestamp &&
+                Objects.equals(sourceId, that.sourceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timestamp, sourceId);
     }
 }

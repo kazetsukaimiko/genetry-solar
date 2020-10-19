@@ -1,8 +1,9 @@
-package com.genetrysolar.victor.entity.telemetry;
+package com.genetrysolar.seed;
 
 import com.genetrysolar.enumerations.InverterModes;
 import com.genetrysolar.enumerations.PowerStatus;
 import com.genetrysolar.enumerations.TemperatureRadix;
+import com.genetrysolar.model.OutputTelemetry;
 import com.genetrysolar.model.SetupTelemetry;
 import com.genetrysolar.model.StatusTelemetry;
 import com.genetrysolar.model.TemperatureTelemetry;
@@ -44,10 +45,19 @@ public class FakeTelemetry {
         return setupTelemetry;
     }
 
-    public TemperatureTelemetry makeTempTelemetry(String sourceId, int loadPct) {
+    public TemperatureTelemetry makeTempTelemetry(String sourceId, int idx, int total, int loadPct) {
         TemperatureTelemetry temperatureTelemetry = new TemperatureTelemetry();
         // 70 - 80 degrees F
-        double ambientTemp = randomAround(75d, 5d);
+
+        // 10000/5 = 2000
+        /*
+        2000%2000=0-1000=-1000
+
+         */
+        double scaleFactor = total / 5;
+        double scaledAmbientBase = Math.abs((idx % scaleFactor) - (scaleFactor / 2)) / 20;
+        double ambientTemp = randomAround(70 + scaledAmbientBase, 5d);
+        System.out.println(ambientTemp);
         temperatureTelemetry.setAmbientThermistor(ambientTemp);
         temperatureTelemetry.setCpuThermistor(aboveAmbient(10d, ambientTemp));
         temperatureTelemetry.setTransformerThermistor(randomAround(xformerTempByLoadAndAmbient(loadPct, ambientTemp), 2d));
@@ -62,6 +72,20 @@ public class FakeTelemetry {
         temperatureTelemetry.setThermistor6(randomAround(ambientTemp + 10d, 3d));
         temperatureTelemetry.setSourceId(sourceId);
         return temperatureTelemetry;
+    }
+
+
+    public OutputTelemetry makeOutTelemetry(String sourceId, int loadPct) {
+        double outputVoltage = 240;
+        double outputWattage = 8000 * ((double) loadPct / 100d);
+        double outputAmperage = (outputWattage / outputVoltage);
+        OutputTelemetry outputTelemetry = new OutputTelemetry();
+        outputTelemetry.setOutHZ(60d);
+        outputTelemetry.setOutPF(0.95);
+        outputTelemetry.setOutputVoltage(outputVoltage);
+        outputTelemetry.setOutputWattage(outputWattage);
+        outputTelemetry.setOutputAmperage(outputAmperage);
+        return outputTelemetry;
     }
 
     // Generate a temperature somewhere above ambient.

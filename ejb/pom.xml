@@ -32,19 +32,28 @@
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
             <version>${version.infinispan}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-commons</artifactId>
             <version>${version.infinispan}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-cdi</artifactId>
-            <version>${version.infinispan.cdi}</version>
+            <artifactId>infinispan-cdi-common</artifactId>
+            <version>${version.infinispan}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-cdi-embedded</artifactId>
+            <version>${version.infinispan}</version>
+        </dependency>
+
 
         <!-- TODO
         <dependency>

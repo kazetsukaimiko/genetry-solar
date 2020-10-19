@@ -1,6 +1,5 @@
 package com.genetrysolar.test;
 
-import com.genetrysolar.victor.entity.telemetry.FakeTelemetry;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -9,7 +8,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ITTestBase extends FakeTelemetry {
+public class ITTestBase {
 
     public static final String JBOSS_HOME = "jboss.home";
     public static final String USER_HOME = "user.home";
